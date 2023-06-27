@@ -37,6 +37,6 @@ spec:
               path: /
               port: 3000
               scheme: HTTP
-            failureThreshold:
+            failureThreshold: 30
             periodSeconds: 10
             timeoutSeconds: 10

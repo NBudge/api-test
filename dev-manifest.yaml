@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nathanael-api
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nathanael-api
+  template:
+    metadata:
+      labels:
+        app: nathanael-api
+    spec:
+      containers:
+        - name: nathanael-api
+          image: us-docker.pkg.dev/team-3-kubernetes-engine/nathanael-api/api-tests
+          ports:
+            - containerPort: 3000
+          resources:
+            limits:
+              cpu: ".5"
+              memory: "500Mi"
+            requests:
+              cpu: ".25"
+              memory: "250Mi"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+              scheme: HTTP
+            failureThreshold: 1
+            periodSeconds: 10
+            timeoutSeconds: 10
+          startupProbe:
+            httpGet:
+              path: /
+              port: 3000
+              scheme: HTTP
+            failureThreshold:
+            periodSeconds: 10
+            timeoutSeconds: 10
